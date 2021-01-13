@@ -4,6 +4,7 @@ const { graphqlHTTP } = require("express-graphql")
 const schema = require("./schema/schema")
 const mongoose = require("mongoose")
 const cors = require("cors")
+const expressPlayground = require("graphql-playground-middleware-express").default;
 
 const PORT = process.env.PORT || 4000
 const app = express()
@@ -25,6 +26,7 @@ app.use('/graphql', graphqlHTTP({
     graphiql: true
 }))
 
+app.get("/playground", expressPlayground({ endpoint: "/graphql" }))
 
 app.listen(PORT, () => {
     console.log(`Now listening for requests on port ${PORT}`)
